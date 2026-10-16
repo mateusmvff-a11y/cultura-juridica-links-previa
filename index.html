@@ -77,10 +77,33 @@
     .banners{gap:16px}
     .botao{height:64px;font-size:16px}
   }
+  /* Notebook da Academia: duas metades da mesma imagem (tampa e base) cortadas na dobradiça */
+  .nb{position:absolute;left:calc(2030 / 3660 * 100%);top:calc(159 / 1500 * 100%);width:calc(1630 / 3660 * 100%);height:calc(1341 / 1500 * 100%);pointer-events:none}
+  .nb img{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .nb .base{clip-path:inset(57.6% 0 0 0)}
+  .nb .tampa{clip-path:inset(0 0 42.4% 0);transform-origin:50% 57.6%}
+
+  /* Entrada ao rolar (só com JS; sem JS tudo aparece normal) */
+  .js .banner{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .js .banner.visto{opacity:1;transform:none}
+  .js .botoes .botao{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1),background .25s ease,box-shadow .25s ease}
+  .js .botoes.visto .botao{opacity:1;transform:none}
+  .js .botoes.visto .botao:nth-child(2){transition-delay:.08s,.08s,0s,0s}
+  .js .botoes.visto .botao:nth-child(3){transition-delay:.16s,.16s,0s,0s}
+
+  /* Notebook abrindo: a tampa gira em torno da dobradiça enquanto a tela acende */
+  .js .nb .base{opacity:0;transform:translateY(18px);transition:opacity .6s ease .1s,transform .9s cubic-bezier(.2,.7,.2,1) .1s}
+  .js .nb .tampa{opacity:0;transform:perspective(1100px) rotateX(-84deg);filter:brightness(.25);
+    transition:transform 1.3s cubic-bezier(.22,.8,.2,1) .45s,opacity .3s ease .45s,filter 1.3s ease .45s}
+  .js .visto .nb .base{opacity:1;transform:none}
+  .js .visto .nb .tampa{opacity:1;transform:perspective(1100px) rotateX(0);filter:none}
+
   @media (prefers-reduced-motion:reduce){
     .cta,.cta::after,.botao{transition:none}
+    .js .banner,.js .botoes .botao,.js .nb .base,.js .nb .tampa{opacity:1;transform:none;filter:none;transition:none}
   }
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <main>
@@ -105,6 +128,10 @@
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/academia" aria-label="Academia: sua dose diária de cultura jurídica. Assine">
       <img src="img/academia.webp" alt="" width="1400" height="574" loading="lazy">
+      <span class="nb" aria-hidden="true">
+        <img class="base" src="img/notebook.webp" alt="" loading="lazy">
+        <img class="tampa" src="img/notebook.webp" alt="" loading="lazy">
+      </span>
       <span class="cta" style="--x:408.06;--y:864.3"><img class="rotulo" src="img/rotulo-assine.png" alt=""></span>
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/newsletter" aria-label="Newsletter Cultura Jurídica. Receber gratuitamente">
@@ -124,5 +151,20 @@
     <img src="img/rodape-b.svg" alt="" width="481" height="14">
   </footer>
 </main>
+<script>
+  (function () {
+    var alvos = document.querySelectorAll('.banner, .botoes');
+    if (!('IntersectionObserver' in window)) {
+      alvos.forEach(function (el) { el.classList.add('visto'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.35 });
+    alvos.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>
