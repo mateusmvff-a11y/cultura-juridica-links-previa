@@ -62,20 +62,48 @@
   .banner:focus-visible .cta{box-shadow:0 0 0 1px rgba(252,203,130,.5),0 6px 22px rgba(252,203,130,.45)}
   .banner:active .cta{filter:brightness(.95)}
 
-  .botoes{width:100%;display:flex;flex-direction:column;gap:14px;margin-top:21px}
-  .botao{display:flex;align-items:center;justify-content:center;height:76px;padding:0 20px;border-radius:4px;background:var(--preto);color:#fff;font-size:18px;font-weight:700;text-align:center;text-decoration:none;transition:background .25s ease,box-shadow .25s ease}
-  .botao:hover{background:var(--preto-hover);box-shadow:0 0 0 1px rgba(252,203,130,.55)}
-  .botao.ouro{background:var(--ouro)}
-  .botao.ouro:hover{background:var(--ouro-hover);box-shadow:none}
+  /* Etiqueta no banner do Ágora */
+  .tag{position:absolute;left:3.2%;top:7%;z-index:1;display:inline-flex;align-items:center;gap:6px;padding:4px 10px 4px 8px;border-radius:999px;background:rgba(7,15,30,.72);border:1px solid rgba(252,203,130,.45);color:#faedcf;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .tag i{width:7px;height:7px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.6);animation:pulsa 2s ease-out infinite}
+  @keyframes pulsa{0%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}70%,100%{box-shadow:0 0 0 7px rgba(61,220,132,0)}}
 
-  footer{margin-top:44px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 28px}
-  footer img{display:block;max-width:100%;height:auto}
+  /* Botões finais: mesma linguagem dos botões dos banners (brilho + contorno dourado no hover) */
+  .botoes{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:24px}
+  .botao{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;height:68px;padding:0 22px;border-radius:8px;background:var(--preto);color:#fff;font-size:17px;font-weight:700;text-decoration:none;border:1px solid rgba(252,203,130,.22);transition:background .25s ease,box-shadow .3s ease,border-color .3s ease}
+  .botao .ico{flex:none;width:22px;height:22px;display:block;color:var(--ouro-claro)}
+  .botao .txt{flex:1;text-align:center;padding-right:36px}
+  .botao .seta{position:absolute;right:20px;top:50%;width:18px;height:18px;margin-top:-9px;opacity:.55;transition:opacity .25s ease,transform .3s ease}
+  .botao::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-130%)}
+  .botao.ouro{background:linear-gradient(90deg,var(--ouro),#e3b16a);border-color:var(--ouro-claro);text-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .botao.ouro .ico{color:#fff}
+  .botao.ouro::after{background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%)}
+  @media (hover:hover){
+    .botao:hover{background:var(--preto-hover);border-color:rgba(252,203,130,.7);box-shadow:0 6px 18px rgba(0,0,0,.22)}
+    .botao.ouro:hover{background:linear-gradient(90deg,var(--ouro),#e3b16a);filter:brightness(1.08) saturate(1.08);box-shadow:0 6px 22px rgba(252,203,130,.45)}
+    .botao:hover::after{transform:translateX(130%);transition:transform .8s ease}
+    .botao:hover .seta{opacity:1;transform:translateX(3px)}
+  }
+  .botao:active{filter:brightness(.95)}
+
+  /* Rodapé escuro, de ponta a ponta */
+  .rodape{background:#070f1e;color:#e9e1d1;padding:52px 16px 48px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center}
+  .rodape .m{display:block;background:currentColor;-webkit-mask:var(--src) center/contain no-repeat;mask:var(--src) center/contain no-repeat}
+  .rodape .m-logo{--src:url(img/rodape-a.svg);width:84px;aspect-ratio:576/181;color:#f3ecdc}
+  .rodape .m-lema{--src:url(img/rodape-b.svg);width:min(440px,100%);aspect-ratio:1535/46}
+  .redes{display:flex;gap:18px;list-style:none;padding:0}
+  .redes a{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:#e9e1d1;transition:color .25s ease,background .25s ease}
+  .redes a:hover{color:#070f1e;background:var(--ouro-claro)}
+  .redes svg{width:20px;height:20px;display:block}
+  .rodape a:focus-visible{outline:2px solid var(--ouro-claro);outline-offset:3px}
 
   @media (max-width:420px){
-    main{padding-top:32px}
+    main{padding-top:32px;padding-bottom:40px}
     .logo{margin-bottom:36px}
     .banners{gap:16px}
-    .botao{height:64px;font-size:16px}
+    .botao{height:60px;font-size:15px;padding:0 18px;gap:12px}
+    .botao .txt{padding-right:30px}
+    .tag{font-size:10px;padding:3px 8px 3px 7px}
+    .rodape{padding:44px 16px 40px}
   }
   /* Notebook da Academia: duas metades da mesma imagem (tampa e base) cortadas na dobradiça */
   .nb{position:absolute;left:calc(2030 / 3660 * 100%);top:calc(159 / 1500 * 100%);width:calc(1630 / 3660 * 100%);height:calc(1341 / 1500 * 100%);pointer-events:none}
@@ -86,10 +114,10 @@
   /* Entrada ao rolar (só com JS; sem JS tudo aparece normal) */
   .js .banner{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
   .js .banner.visto{opacity:1;transform:none}
-  .js .botoes .botao{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1),background .25s ease,box-shadow .25s ease}
+  .js .botoes .botao{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1),background .25s ease,box-shadow .3s ease,border-color .3s ease}
   .js .botoes.visto .botao{opacity:1;transform:none}
-  .js .botoes.visto .botao:nth-child(2){transition-delay:.08s,.08s,0s,0s}
-  .js .botoes.visto .botao:nth-child(3){transition-delay:.16s,.16s,0s,0s}
+  .js .botoes.visto .botao:nth-child(2){transition-delay:.08s,.08s,0s,0s,0s}
+  .js .botoes.visto .botao:nth-child(3){transition-delay:.16s,.16s,0s,0s,0s}
 
   /* Notebook abrindo: a tampa gira em torno da dobradiça enquanto a tela acende */
   .js .nb .base{opacity:0;transform:translateY(18px);transition:opacity .6s ease .1s,transform .9s cubic-bezier(.2,.7,.2,1) .1s}
@@ -99,7 +127,8 @@
   .js .visto .nb .tampa{opacity:1;transform:perspective(1100px) rotateX(0);filter:none}
 
   @media (prefers-reduced-motion:reduce){
-    .cta,.cta::after,.botao{transition:none}
+    .cta,.cta::after,.botao,.botao::after,.redes a{transition:none}
+    .tag i{animation:none}
     .js .banner,.js .botoes .botao,.js .nb .base,.js .nb .tampa{opacity:1;transform:none;filter:none;transition:none}
   }
 </style>
@@ -110,23 +139,24 @@
   <a class="logo" href="https://www.culturajuridica.com.br/" aria-label="Cultura Jurídica"><img src="img/logo.svg" alt="Cultura Jurídica"></a>
 
   <div class="banners">
-    <a class="banner" href="https://pg.culturajuridica.com.br/agora-ven01/" aria-label="Ágora: abertura de matrículas da 2ª edição. Fazer parte">
+    <a class="banner" href="https://pg.culturajuridica.com.br/agora-ven01/?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=agora" aria-label="Ágora: abertura de matrículas da 2ª edição. Fazer parte">
       <img src="img/agora.webp" alt="" width="1400" height="574">
+      <span class="tag"><i></i>Matrículas abertas</span>
       <span class="cta" style="--x:409.95;--y:905"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
-    <a class="banner" href="https://lancamento.culturajuridica.com.br/civilistas" aria-label="Clube dos Civilistas com Nelson Rosenvald. Fazer parte">
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/civilistas?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=civilistas" aria-label="Clube dos Civilistas com Nelson Rosenvald. Fazer parte">
       <img src="img/civilistas.webp" alt="" width="1400" height="574" loading="lazy">
       <span class="cta" style="--x:409;--y:905"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
-    <a class="banner" href="https://lancamento.culturajuridica.com.br/penalistas" aria-label="Clube dos Penalistas com Cleber Masson. Fazer parte">
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/penalistas?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=penalistas" aria-label="Clube dos Penalistas com Cleber Masson. Fazer parte">
       <img src="img/penalistas.webp" alt="" width="1400" height="574" loading="lazy">
       <span class="cta" style="--x:409;--y:900"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
-    <a class="banner" href="https://lancamento.culturajuridica.com.br/processualistas" aria-label="Clube dos Processualistas com Eduardo José da Fonseca Costa. Fazer parte">
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/processualistas?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=processualistas" aria-label="Clube dos Processualistas com Eduardo José da Fonseca Costa. Fazer parte">
       <img src="img/processualistas.webp" alt="" width="1400" height="574" loading="lazy">
       <span class="cta" style="--x:408;--y:930"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
-    <a class="banner" href="https://lancamento.culturajuridica.com.br/academia" aria-label="Academia: sua dose diária de cultura jurídica. Assine">
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/academia?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=academia" aria-label="Academia: sua dose diária de cultura jurídica. Assine">
       <img src="img/academia.webp" alt="" width="1400" height="574" loading="lazy">
       <span class="nb" aria-hidden="true">
         <img class="base" src="img/notebook.webp" alt="" loading="lazy">
@@ -134,23 +164,26 @@
       </span>
       <span class="cta" style="--x:408.06;--y:864.3"><img class="rotulo" src="img/rotulo-assine.png" alt=""></span>
     </a>
-    <a class="banner" href="https://lancamento.culturajuridica.com.br/newsletter" aria-label="Newsletter Cultura Jurídica. Receber gratuitamente">
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/newsletter?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=newsletter" aria-label="Newsletter Cultura Jurídica. Receber gratuitamente">
       <img src="img/newsletter.webp" alt="" width="1400" height="574" loading="lazy">
       <span class="cta" style="--x:409;--y:805"><img class="rotulo" src="img/rotulo-receber.png" alt=""></span>
     </a>
   </div>
 
   <div class="botoes">
-    <a class="botao" href="https://www.culturajuridica.com.br/login-aluno">Área do assinante</a>
-    <a class="botao" href="https://www.culturajuridica.com.br/">Site oficial do Cultura Jurídica</a>
-    <a class="botao ouro" href="https://wa.me/551931670590">Alguma dúvida? Fale com nosso atendimento</a>
+    <a class="botao" href="https://www.culturajuridica.com.br/login-aluno?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=area-do-assinante"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg><span class="txt">Área do assinante</span><svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="botao" href="https://www.culturajuridica.com.br/?utm_source=links&amp;utm_medium=pagina-de-links&amp;utm_campaign=links-uteis&amp;utm_content=site-oficial"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.7 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.7-4-9s1.4-6.4 4-9z"/></svg><span class="txt">Site oficial do Cultura Jurídica</span><svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="botao ouro" href="https://wa.me/551931670590"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.13L2 22l5-1.6A9.9 9.9 0 1 0 12.04 2zm0 1.8a8.1 8.1 0 1 1-4.3 15l-.3-.2-2.9.9.9-2.8-.2-.3A8.1 8.1 0 0 1 12.04 3.8zm-3 3.9c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.4 1 2.9.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4l-.5-.3-1.7-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.5.3-.4c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4z"/></svg><span class="txt">Alguma dúvida? Fale com nosso atendimento</span><svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
-
-  <footer>
-    <img src="img/rodape-a.svg" alt="" width="98" height="31">
-    <img src="img/rodape-b.svg" alt="" width="481" height="14">
-  </footer>
 </main>
+<footer class="rodape">
+  <span class="m m-logo" role="img" aria-label="Cultura Jurídica"></span>
+  <span class="m m-lema" role="img" aria-label="Saiba mais. Saiba melhor. Saiba direito."></span>
+  <ul class="redes">
+    <li><a href="https://www.instagram.com/culturajuridica_oficial" aria-label="Instagram do Cultura Jurídica" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></a></li>
+    <li><a href="https://www.youtube.com/@culturajuridica_oficial" aria-label="YouTube do Cultura Jurídica" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></a></li>
+  </ul>
+</footer>
 <script>
   (function () {
     var alvos = document.querySelectorAll('.banner, .botoes');
