@@ -111,7 +111,19 @@
   .nb{position:absolute;left:calc(2030 / 3660 * 100%);top:calc(159 / 1500 * 100%);width:calc(1630 / 3660 * 100%);height:calc(1341 / 1500 * 100%);pointer-events:none}
   .nb img{position:absolute;inset:0;width:100%;height:100%;display:block}
   .nb .base{clip-path:inset(57.6% 0 0 0)}
-  .nb .tampa{clip-path:inset(0 0 42.4% 0);transform-origin:50% 57.6%}
+  .nb .tampa{position:absolute;inset:0;clip-path:inset(0 0 42.4% 0);transform-origin:50% 57.6%}
+  /* Tela do notebook: as 3 fileiras de professores correm em loop (direita, esquerda, direita) */
+  .tela{position:absolute;left:calc(103 / 1630 * 100%);top:calc(29 / 1341 * 100%);width:calc(1197 / 1630 * 100%);height:calc(715 / 1341 * 100%);overflow:hidden}
+  .fila{position:relative;display:block;width:100%;overflow:hidden}
+  .fila.f1{height:34.55%}.fila.f2{height:37.62%}.fila.f3{height:27.83%}
+  .pista{position:absolute;left:0;top:0;height:100%;width:285.6%;background-repeat:repeat-x;background-size:33.3333% 100%;will-change:transform;animation-timing-function:linear;animation-iteration-count:infinite}
+  .f1 .pista{background-image:url(img/fila-1.webp);animation:vai-dir 26s linear infinite 1.2s}
+  .f2 .pista{background-image:url(img/fila-2.webp);animation:vai-esq 22s linear infinite 1.2s}
+  .f3 .pista{background-image:url(img/fila-3.webp);animation:vai-dir 30s linear infinite 1.2s}
+  @keyframes vai-dir{from{transform:translateX(-33.3333%)}to{transform:translateX(0)}}
+  @keyframes vai-esq{from{transform:translateX(0)}to{transform:translateX(-33.3333%)}}
+  .js .pista{animation-play-state:paused}
+  .js .visto .pista{animation-play-state:running}
 
   /* Entrada ao rolar (só com JS; sem JS tudo aparece normal) */
   .js .banner{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
@@ -130,7 +142,7 @@
 
   @media (prefers-reduced-motion:reduce){
     .cta,.cta::after,.botao,.botao::after,.redes a{transition:none}
-    .tag i,.botao:hover .seta,.botao:focus-visible .seta{animation:none}
+    .tag i,.botao:hover .seta,.botao:focus-visible .seta,.pista{animation:none !important}
     .js .banner,.js .botoes .botao,.js .nb .base,.js .nb .tampa{opacity:1;transform:none;filter:none;transition:none}
   }
 </style>
@@ -162,7 +174,10 @@
       <img src="img/academia.webp" alt="" width="1400" height="574" loading="lazy">
       <span class="nb" aria-hidden="true">
         <img class="base" src="img/notebook.webp" alt="" loading="lazy">
-        <img class="tampa" src="img/notebook.webp" alt="" loading="lazy">
+        <span class="tampa">
+          <img src="img/notebook.webp" alt="" loading="lazy">
+          <span class="tela"><span class="fila f1"><span class="pista"></span></span><span class="fila f2"><span class="pista"></span></span><span class="fila f3"><span class="pista"></span></span></span>
+        </span>
       </span>
       <span class="cta" style="--x:408.06;--y:864.3"><img class="rotulo" src="img/rotulo-assine.png" alt=""></span>
     </a>
