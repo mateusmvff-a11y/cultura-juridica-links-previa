@@ -16,6 +16,7 @@
     --preto-hover:#26262b;
     --ouro:#ca9547;
     --ouro-hover:#b9853b;
+    --ouro-claro:#fccb82;
     --largura:509px;
   }
   *{box-sizing:border-box;margin:0}
@@ -25,19 +26,47 @@
   .logo{display:block;width:166px;height:64px;margin-bottom:52px}
   .logo img{display:block;width:100%;height:100%}
 
-  /* banners: o botão "Fazer parte" já faz parte da imagem do Figma, então o banner inteiro é o link */
+  /* Banner = fundo do Figma (sem botão) + botão recriado em CSS por cima, na mesma posição do Figma.
+     O banner inteiro é o link; o hover em qualquer parte acende o botão. */
   .banners{width:100%;display:flex;flex-direction:column;gap:24px}
-  .banner{display:block;position:relative;width:100%;aspect-ratio:3660/1500;border-radius:10px;overflow:hidden;background:#111}
-  .banner img{display:block;width:100%;height:100%;object-fit:cover}
+  .banner{display:block;position:relative;width:100%;aspect-ratio:3660/1500;border-radius:10px;overflow:hidden;background:#111;-webkit-tap-highlight-color:transparent}
+  .banner > img{display:block;width:100%;height:100%;object-fit:cover}
   .banner::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);pointer-events:none}
-  .banner:hover img{filter:brightness(1.05)}
   .banner:focus-visible,.botao:focus-visible{outline:3px solid var(--ouro);outline-offset:3px}
 
+  /* Medidas do botão no Figma (frame 3660x1500): 1148 x 245,5; --x e --y = posição do canto */
+  .cta{
+    position:absolute;
+    left:calc(var(--x) / 3660 * 100%);
+    top:calc(var(--y) / 1500 * 100%);
+    width:calc(1148 / 3660 * 100%);
+    height:calc(245.46 / 1500 * 100%);
+    border:1px solid var(--ouro-claro);
+    border-radius:2.6% / 12.2%;
+    background:linear-gradient(90deg,var(--ouro),var(--ouro-claro));
+    overflow:hidden;
+    z-index:1;
+    transition:box-shadow .35s ease, filter .35s ease;
+  }
+  .cta .rotulo{position:absolute;inset:0;width:100%;height:100%;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+  /* brilho que passa por cima no hover */
+  .cta::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.6) 50%,transparent 65%);
+    transform:translateX(-130%);
+  }
+  @media (hover:hover){
+    .banner:hover .cta{box-shadow:0 0 0 1px rgba(252,203,130,.5),0 6px 22px rgba(252,203,130,.45);filter:brightness(1.08) saturate(1.08)}
+    .banner:hover .cta::after{transform:translateX(130%);transition:transform .8s ease}
+  }
+  .banner:focus-visible .cta{box-shadow:0 0 0 1px rgba(252,203,130,.5),0 6px 22px rgba(252,203,130,.45)}
+  .banner:active .cta{filter:brightness(.95)}
+
   .botoes{width:100%;display:flex;flex-direction:column;gap:14px;margin-top:21px}
-  .botao{display:flex;align-items:center;justify-content:center;height:76px;padding:0 20px;border-radius:4px;background:var(--preto);color:#fff;font-size:18px;font-weight:700;text-align:center;text-decoration:none}
-  .botao:hover{background:var(--preto-hover)}
+  .botao{display:flex;align-items:center;justify-content:center;height:76px;padding:0 20px;border-radius:4px;background:var(--preto);color:#fff;font-size:18px;font-weight:700;text-align:center;text-decoration:none;transition:background .25s ease,box-shadow .25s ease}
+  .botao:hover{background:var(--preto-hover);box-shadow:0 0 0 1px rgba(252,203,130,.55)}
   .botao.ouro{background:var(--ouro)}
-  .botao.ouro:hover{background:var(--ouro-hover)}
+  .botao.ouro:hover{background:var(--ouro-hover);box-shadow:none}
 
   footer{margin-top:44px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 28px}
   footer img{display:block;max-width:100%;height:auto}
@@ -48,6 +77,9 @@
     .banners{gap:16px}
     .botao{height:64px;font-size:16px}
   }
+  @media (prefers-reduced-motion:reduce){
+    .cta,.cta::after,.botao{transition:none}
+  }
 </style>
 </head>
 <body>
@@ -56,22 +88,28 @@
 
   <div class="banners">
     <a class="banner" href="https://pg.culturajuridica.com.br/agora-ven01/" aria-label="Ágora: abertura de matrículas da 2ª edição. Fazer parte">
-      <img src="img/agora.webp" alt="Ágora, abertura de matrículas da 2ª edição" width="1400" height="574">
+      <img src="img/agora.webp" alt="" width="1400" height="574">
+      <span class="cta" style="--x:409.95;--y:905"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/civilistas" aria-label="Clube dos Civilistas com Nelson Rosenvald. Fazer parte">
-      <img src="img/civilistas.webp" alt="Clube dos Civilistas com Nelson Rosenvald" width="1400" height="574" loading="lazy">
+      <img src="img/civilistas.webp" alt="" width="1400" height="574" loading="lazy">
+      <span class="cta" style="--x:409;--y:905"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/penalistas" aria-label="Clube dos Penalistas com Cleber Masson. Fazer parte">
-      <img src="img/penalistas.webp" alt="Clube dos Penalistas com Cleber Masson" width="1400" height="574" loading="lazy">
+      <img src="img/penalistas.webp" alt="" width="1400" height="574" loading="lazy">
+      <span class="cta" style="--x:409;--y:900"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/processualistas" aria-label="Clube dos Processualistas com Eduardo José da Fonseca Costa. Fazer parte">
-      <img src="img/processualistas.webp" alt="Clube dos Processualistas com Eduardo José da Fonseca Costa" width="1400" height="574" loading="lazy">
+      <img src="img/processualistas.webp" alt="" width="1400" height="574" loading="lazy">
+      <span class="cta" style="--x:408;--y:930"><img class="rotulo" src="img/rotulo-fazer.png" alt=""></span>
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/academia" aria-label="Academia: sua dose diária de cultura jurídica. Assine">
-      <img src="img/academia.webp" alt="Academia, sua dose diária de cultura jurídica" width="1400" height="574" loading="lazy">
+      <img src="img/academia.webp" alt="" width="1400" height="574" loading="lazy">
+      <span class="cta" style="--x:408.06;--y:864.3"><img class="rotulo" src="img/rotulo-assine.png" alt=""></span>
     </a>
     <a class="banner" href="https://lancamento.culturajuridica.com.br/newsletter" aria-label="Newsletter Cultura Jurídica. Receber gratuitamente">
-      <img src="img/newsletter.webp" alt="Newsletter Cultura Jurídica" width="1400" height="574" loading="lazy">
+      <img src="img/newsletter.webp" alt="" width="1400" height="574" loading="lazy">
+      <span class="cta" style="--x:409;--y:805"><img class="rotulo" src="img/rotulo-receber.png" alt=""></span>
     </a>
   </div>
 
