@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Links úteis | Cultura Jurídica</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Clubes de leitura, Academia, newsletter e área do assinante do Cultura Jurídica.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fundo:#fffbf7;
+    --preto:#0d0d0f;
+    --preto-hover:#26262b;
+    --ouro:#ca9547;
+    --ouro-hover:#b9853b;
+    --largura:509px;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--fundo);font-family:"DM Sans",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  main{width:min(var(--largura),100% - 32px);margin:0 auto;padding:43px 0 56px;display:flex;flex-direction:column;align-items:center}
+
+  .logo{display:block;width:166px;height:64px;margin-bottom:52px}
+  .logo img{display:block;width:100%;height:100%}
+
+  /* banners: o botão "Fazer parte" já faz parte da imagem do Figma, então o banner inteiro é o link */
+  .banners{width:100%;display:flex;flex-direction:column;gap:24px}
+  .banner{display:block;position:relative;width:100%;aspect-ratio:3660/1500;border-radius:10px;overflow:hidden;background:#111}
+  .banner img{display:block;width:100%;height:100%;object-fit:cover}
+  .banner::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);pointer-events:none}
+  .banner:hover img{filter:brightness(1.05)}
+  .banner:focus-visible,.botao:focus-visible{outline:3px solid var(--ouro);outline-offset:3px}
+
+  .botoes{width:100%;display:flex;flex-direction:column;gap:14px;margin-top:21px}
+  .botao{display:flex;align-items:center;justify-content:center;height:76px;padding:0 20px;border-radius:4px;background:var(--preto);color:#fff;font-size:18px;font-weight:700;text-align:center;text-decoration:none}
+  .botao:hover{background:var(--preto-hover)}
+  .botao.ouro{background:var(--ouro)}
+  .botao.ouro:hover{background:var(--ouro-hover)}
+
+  footer{margin-top:44px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 28px}
+  footer img{display:block;max-width:100%;height:auto}
+
+  @media (max-width:420px){
+    main{padding-top:32px}
+    .logo{margin-bottom:36px}
+    .banners{gap:16px}
+    .botao{height:64px;font-size:16px}
+  }
+</style>
+</head>
+<body>
+<main>
+  <a class="logo" href="https://www.culturajuridica.com.br/" aria-label="Cultura Jurídica"><img src="img/logo.svg" alt="Cultura Jurídica"></a>
+
+  <div class="banners">
+    <a class="banner" href="https://pg.culturajuridica.com.br/agora-ven01/" aria-label="Ágora: abertura de matrículas da 2ª edição. Fazer parte">
+      <img src="img/agora.webp" alt="Ágora, abertura de matrículas da 2ª edição" width="1400" height="574">
+    </a>
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/civilistas" aria-label="Clube dos Civilistas com Nelson Rosenvald. Fazer parte">
+      <img src="img/civilistas.webp" alt="Clube dos Civilistas com Nelson Rosenvald" width="1400" height="574" loading="lazy">
+    </a>
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/penalistas" aria-label="Clube dos Penalistas com Cleber Masson. Fazer parte">
+      <img src="img/penalistas.webp" alt="Clube dos Penalistas com Cleber Masson" width="1400" height="574" loading="lazy">
+    </a>
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/processualistas" aria-label="Clube dos Processualistas com Eduardo José da Fonseca Costa. Fazer parte">
+      <img src="img/processualistas.webp" alt="Clube dos Processualistas com Eduardo José da Fonseca Costa" width="1400" height="574" loading="lazy">
+    </a>
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/academia" aria-label="Academia: sua dose diária de cultura jurídica. Assine">
+      <img src="img/academia.webp" alt="Academia, sua dose diária de cultura jurídica" width="1400" height="574" loading="lazy">
+    </a>
+    <a class="banner" href="https://lancamento.culturajuridica.com.br/newsletter" aria-label="Newsletter Cultura Jurídica. Receber gratuitamente">
+      <img src="img/newsletter.webp" alt="Newsletter Cultura Jurídica" width="1400" height="574" loading="lazy">
+    </a>
+  </div>
+
+  <div class="botoes">
+    <a class="botao" href="https://www.culturajuridica.com.br/login-aluno">Área do assinante</a>
+    <a class="botao" href="https://www.culturajuridica.com.br/">Site oficial do Cultura Jurídica</a>
+    <a class="botao ouro" href="https://wa.me/551931670590">Alguma dúvida? Fale com nosso atendimento</a>
+  </div>
+
+  <footer>
+    <img src="img/rodape-a.svg" alt="" width="98" height="31">
+    <img src="img/rodape-b.svg" alt="" width="481" height="14">
+  </footer>
+</main>
+</body>
+</html>
